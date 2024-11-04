@@ -1,9 +1,8 @@
 fileFormatVersion: 2
-guid: bdf9fd42c6665a045bf5d894cf016f5a
-labels:
-- AllCreature
-DefaultImporter:
+guid: e392a8b6c821bb64dbcc84013df56290
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 8400000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
