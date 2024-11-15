@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 
+
 namespace Invector.vCharacterController
 {
+
+
     public class vThirdPersonController : vThirdPersonAnimator
     {
+        private Animator animator;
+        private string currentAnimation = "";
+
+
         public virtual void ControlAnimatorRootMotion()
         {
             if (!this.enabled) return;
@@ -75,6 +82,29 @@ namespace Invector.vCharacterController
             else
             {
                 moveDirection = new Vector3(inputSmooth.x, 0, inputSmooth.z);
+            }
+        }
+        private void Start()
+        {
+            animator = GetComponent<Animator>();
+            ChangeAnimation("Rac_Attack Paws");
+        }
+
+        private void ChangeAnimation(string animation, float crossfade = 0.2f)
+
+        {
+            if(currentAnimation != animation)
+            {
+                currentAnimation = animation;
+                animator.CrossFade(animation, crossfade);
+            }
+        
+        } 
+        private void CheckAnimation()
+        {
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                ChangeAnimation("Rac_Trot Forward");
             }
         }
 

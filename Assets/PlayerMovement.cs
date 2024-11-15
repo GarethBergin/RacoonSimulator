@@ -35,12 +35,18 @@ public class PlayerMovementTutorial : MonoBehaviour
 
     Rigidbody rb;
 
+    private Animator animator;
+    private string currentAnimation = "";
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         rb.freezeRotation = true;
 
         readyToJump = true;
+
+        ChangeAnimation("Rac_Attack Paws");
     }
 
     private void Update()
@@ -120,5 +126,13 @@ public class PlayerMovementTutorial : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+    private void ChangeAnimation(string animation, float crossfade = 0.2f)
+    {
+        if(currentAnimation != animation){
+            currentAnimation = animation;
+            animator.CrossFade(animation, crossfade);
+        }
+
     }
 }
