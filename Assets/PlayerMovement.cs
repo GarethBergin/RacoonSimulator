@@ -46,7 +46,7 @@ public class PlayerMovementTutorial : MonoBehaviour
 
         readyToJump = true;
 
-        ChangeAnimation("Rac_Attack Paws");
+        //ChangeAnimation("Rac_Attack Paws");
     }
 
     private void Update()
@@ -62,6 +62,8 @@ public class PlayerMovementTutorial : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+
+        CheckAnimation();
     }
 
     private void FixedUpdate()
@@ -132,6 +134,31 @@ public class PlayerMovementTutorial : MonoBehaviour
         if(currentAnimation != animation){
             currentAnimation = animation;
             animator.CrossFade(animation, crossfade);
+        }
+
+    }
+
+    private void CheckAnimation()
+    {
+        if(moveDirection.y == 1)
+        {
+            ChangeAnimation("Rac_Trot Forward");
+        }
+        else if(moveDirection.y == -1)
+        {
+            ChangeAnimation("Rac_WalkBack Forward");
+        }
+        else if(moveDirection.x == 1)
+        {
+            ChangeAnimation("Rac_Trot Right");
+        }
+        else if(moveDirection.x == -1)
+        {
+            ChangeAnimation("Rac_Trot Left");
+        }
+        else
+        {
+            ChangeAnimation("Rac_Idle01");
         }
 
     }

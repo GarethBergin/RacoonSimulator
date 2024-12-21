@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 
 namespace Invector.vCharacterController
@@ -7,9 +9,10 @@ namespace Invector.vCharacterController
 
     public class vThirdPersonController : vThirdPersonAnimator
     {
-        private Animator animator;
-        private string currentAnimation = "";
-
+        // private Animator animator;
+        // private string currentAnimation = "";
+        //public List<Collider> RagdollParts = new List<Collider>();
+        public Rigidbody rb;
 
         public virtual void ControlAnimatorRootMotion()
         {
@@ -84,29 +87,49 @@ namespace Invector.vCharacterController
                 moveDirection = new Vector3(inputSmooth.x, 0, inputSmooth.z);
             }
         }
-        private void Start()
-        {
-            animator = GetComponent<Animator>();
-            ChangeAnimation("Rac_Attack Paws");
-        }
+        // private void Start()
+        // {
+        //     animator = GetComponent<Animator>();
+        //     //ChangeAnimation("Rac_Attack Paws");
+        // }
+        // private void Update()
+        // {
+        //     CheckAnimation();
+        // }
 
-        private void ChangeAnimation(string animation, float crossfade = 0.2f)
+        // private void ChangeAnimation(string animation, float crossfade = 0.2f)
 
-        {
-            if(currentAnimation != animation)
-            {
-                currentAnimation = animation;
-                animator.CrossFade(animation, crossfade);
-            }
+        // {
+        //     if(currentAnimation != animation)
+        //     {
+        //         currentAnimation = animation;
+        //         animator.CrossFade(animation, crossfade);
+        //     }
         
-        } 
-        private void CheckAnimation()
-        {
-            if(Input.GetKeyDown(KeyCode.W))
-            {
-                ChangeAnimation("Rac_Trot Forward");
-            }
-        }
+        // } 
+        // private void CheckAnimation()
+        // {
+        //     if(moveDirection.y == 1)
+        //     {
+        //         ChangeAnimation("Rac_Trot Forward");
+        //     }
+        //     else if(moveDirection.y == -1)
+        //     {
+        //         ChangeAnimation("Rac_WalkBack Forward");
+        //     }
+        //     else if(moveDirection.x == 1)
+        //     {
+        //         ChangeAnimation("Rac_Trot Right");
+        //     }
+        //     else if(moveDirection.x == -1)
+        //     {
+        //         ChangeAnimation("Rac_Trot Left");
+        //     }
+        //     else
+        //     {
+        //         ChangeAnimation("Rac_Idle01");
+        //     }
+        // }
 
         public virtual void Sprint(bool value)
         {
@@ -154,5 +177,35 @@ namespace Invector.vCharacterController
             else
                 animator.CrossFadeInFixedTime("JumpMove", .2f);
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.tag == "car" )
+            {
+                Debug.Log("Collision with car detected!");
+                rb.AddForce(500f * Vector3.up, ForceMode.Impulse);
+
+            }
+        }
+
+        // private void Awake()
+        // {
+        //     SetRagdollParts();
+        // }
+
+
+        // private void SetRagdollParts()
+        // {
+        //     Collider[] colliders = this.gameObject.GetComponentsInChildren<Collider>();
+
+        //     foreach(Collider c in colliders)
+        //     {
+        //         if(c.gameObject != this.gameObject) 
+        //         {
+        //             c.isTrigger = true;
+        //             RagdollParts.Add(c);
+        //         }
+        //     }
+        // }
     }
 }
